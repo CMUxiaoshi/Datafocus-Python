@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Nov  8 16:59:22 2022
+
+@author: Xiao Shi
+"""
+#1. Lists, Tuples, Sets, Dicts and Comprehensions
+#question a
+def opendata_a(path):
+    data=open(path)
+    records=[]
+    for line in data:
+        records.append(line)
+    print('Answer for Q1:\n')
+    for line in records:
+        print(line)
+        print('')
+    data.close()
+    return records
+
+#question b
+def opendata_b(path):
+    data=open(path)
+    records2=[x for x in data]
+    data.close()
+    return records2
+
+#question c
+def opendata_c(path):
+    data=open(path)
+    record3=[tuple(x.replace('\n','').split(':')) for x in data]
+    return record3
+
+#question d
+def opendata_d(records3):
+    i=1
+    cat_set=[]
+    while i<len(records3):
+        cat_set.append(records3[i][1])
+        i+=1
+    cat_set=set(cat_set)
+    j=1
+    date_set=[]
+    while j<len(records3):
+        date_set.append(records3[j][2])
+        j+=1
+    date_set=set(date_set)
+    print('Categoricies:', cat_set, '\n')
+    print('Dates       :', date_set,'\n')
+    return cat_set,date_set
+
+#question e
+def opendata_f(records3):
+    rec_num_to_record={}
+    i=0
+    while i<len(records3):
+        rec_num_to_record[i]=records3[i]
+        i+=1
+    for rn in range(len(rec_num_to_record)):
+        print('{:3d}:{}'.
+              format(rn,rec_num_to_record[rn]))
+    return rec_num_to_record
+
+#main function for question 1
+def main(path):
+    records=opendata_a(path)
+ 
+    print('Answer for Q2:')
+    records2=opendata_b(path)
+    print("\nrecords == records2:",
+       records == records2, '\n')
+    
+    print('Answer for Q3:\n')
+    records3=opendata_c(path)
+    for tup in records3:
+        print(tup)
+        print('\n')
+        
+    print('Answer for Q4:\n')
+    cat_set,date_set=opendata_d(records3)
+    
+    print('Answer for Q5:\n')
+    rec_num_to_record=opendata_f(records3)
+    print('\n'+'items()'+'\n')
+    for i in rec_num_to_record.items():
+		    print('{:3d}: {}'.format(i[0], i[1]))
+#%%
+main(path='/Users/sx/Desktop/Carnegie Mellon University/data focused python/HW3/expenses.txt')
+
+
+
